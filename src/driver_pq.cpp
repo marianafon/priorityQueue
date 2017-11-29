@@ -53,10 +53,8 @@ int main( )
         assert( h.empty() == false );
 
         std::cout << ">>> Passed!\n\n";
-
-        h.print();
     }
-    /*
+    
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": size.\n";
 
@@ -102,7 +100,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
-
+    /*
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": deletion.\n";
 
