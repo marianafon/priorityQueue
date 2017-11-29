@@ -1,7 +1,7 @@
 #include "pq.h"
 
 /*========================================================================================================*/
-//Construtor vazio
+//Construtor vazio === Working!
 template < typename ValueType, typename Compare>
 PQ< ValueType, Compare >::PQ (const Compare & cmp) 	: m_capacity(0)
 												    , m_length(0)	
@@ -23,7 +23,7 @@ PQ< ValueType, Compare >::PQ (const Compare & cmp) 	: m_capacity(0)
 		//m_data = std::move(p);
 }
 /*========================================================================================================*/
-//Push
+//Push === Working!
 template < typename ValueType, typename Compare >
 void PQ< ValueType, Compare >::push( const_reference x )
 {
@@ -48,8 +48,8 @@ void PQ< ValueType, Compare >::push( const_reference x )
 	
 	//fix_heap();
 }
-
-//Move Up
+/*========================================================================================================*/
+//Move Up === Working!
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::move_up(size_type item_idx) 	
 {
@@ -62,8 +62,8 @@ void PQ< ValueType, Compare >::move_up(size_type item_idx)
 		}
 	}
 }
-
-//Move Down
+/*========================================================================================================*/
+//Move Down === Working!
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::move_down(size_type item_idx) 	
 {
@@ -82,8 +82,8 @@ void PQ< ValueType, Compare >::move_down(size_type item_idx)
 		}
 	}
 }
-
-//reserve
+/*========================================================================================================*/
+//reserve === Working!
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::reserve(size_type new_cap)
 {
@@ -96,7 +96,7 @@ void PQ< ValueType, Compare >::reserve(size_type new_cap)
 
 	m_capacity = new_cap;
 }
-
+/*========================================================================================================*/
 //Fix Heap
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::fix_heap() 	
@@ -110,8 +110,8 @@ void PQ< ValueType, Compare >::fix_heap()
 
 	//m_sorted = true;
 }
-
-//Pop
+/*========================================================================================================*/
+//Pop === Working!
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::pop()
 {
@@ -122,10 +122,11 @@ void PQ< ValueType, Compare >::pop()
 	//fix_heap();
 	m_length--;
 }
-
+/*========================================================================================================*/
+//Top === Working!
 template<typename ValueType , typename Compare >
 typename PQ< ValueType, Compare >::const_reference PQ< ValueType, Compare >::top(void) 	
 {
 	return m_data[1];
 }
-
+/*========================================================================================================*/

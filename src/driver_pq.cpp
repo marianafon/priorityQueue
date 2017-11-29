@@ -102,7 +102,7 @@ int main( )
         assert( h2.empty() == true );
         std::cout << ">>> Passed!\n\n";
     }
-    /*
+    
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": deletion.\n";
 
@@ -122,12 +122,14 @@ int main( )
             auto x = h.top();
             assert( x == B_sorted[i++] );
             h.pop();
+            h.print();
         }
 
         assert( h.size() == 0 );
 
         std::cout << ">>> Passed!\n\n";
     }
+    /*
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": constructor from initilize list.\n";
 
@@ -150,6 +152,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
+
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": constructor from range.\n";
 
