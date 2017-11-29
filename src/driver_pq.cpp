@@ -87,18 +87,19 @@ int main( )
         }
 
         assert( h2.size() == A_length );
-        
+        std::cout << std::endl;
         // Check whether the elements come out of the PQ in the correct sorted order.
-        /*
         auto i(0);
         while( not h2.empty() )
         {
             auto x = h2.top();
+            std::cout << ">>> Removing top: " << x << std::endl;
             assert( x == A_sorted[i++] );
             h2.pop();
+            h2.print();
         }
+        h2.print();
         assert( h2.empty() == true );
-        */
         std::cout << ">>> Passed!\n\n";
     }
     /*

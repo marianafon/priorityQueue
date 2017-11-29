@@ -53,13 +53,12 @@ void PQ< ValueType, Compare >::push( const_reference x )
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::move_up(size_type item_idx) 	
 {
-	//Pois as posições válidas começas do 1, mas o programa de teste, conta como 0
 	if((item_idx) > 1 && (item_idx) <= m_length)
 	{
-		if(m_cmp(m_data[(item_idx)], m_data[((item_idx))/2]))
+		if(m_cmp(m_data[(item_idx)], m_data[(item_idx)/2]))
 		{
-			std::swap(m_data[(item_idx)], m_data[((item_idx))/2]);		
-			move_up(((item_idx))/2);
+			std::swap(m_data[(item_idx)], m_data[(item_idx)/2]);		
+			move_up((item_idx)/2);
 		}
 	}
 }
@@ -68,43 +67,20 @@ void PQ< ValueType, Compare >::move_up(size_type item_idx)
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::move_down(size_type item_idx) 	
 {
-	/*
-	if((item_idx + 1) > 0 && (item_idx + 1) <= m_length)
+	if((item_idx) > 0 && (item_idx) < (m_length/2))
 	{
-		if(!m_cmp(m_data[(item_idx + 1)], m_data[((item_idx + 1))/2]))
+		if(! m_cmp(m_data[(item_idx)], m_data[(item_idx)*2]))
 		{
-			std::swap(m_data[(item_idx + 1)], m_data[((item_idx + 1))/2]);		
-			move_up(((item_idx + 1))/2);
+			std::swap(m_data[(item_idx)], m_data[(item_idx)*2]);		
+			move_down((item_idx)*2);
+		}
+
+		if(! m_cmp(m_data[(item_idx)], m_data[(item_idx*2) + 1]))
+		{
+			std::swap(m_data[(item_idx)], m_data[(item_idx*2) + 1]);		
+			move_down((item_idx*2) + 1);
 		}
 	}
-	*/
-
-	// continua no loop enquanto o pai for maior do que um dos filhos
-	while(m_cmp(m_data[2 * item_idx + 1], m_data[item_idx]) || m_cmp(m_data[2 * item_idx + 2], m_data[item_idx]))
-	{
-		//compara quem eh o filho maior ou menor entre os dois(esquerda e direita)
-		if((2 * item_idx + 1) < m_length && (2 * item_idx + 2) < m_length)
-		{
-			if(m_cmp(m_data[2 * item_idx + 1], m_data[2 * item_idx + 2]))
-		  	{
-			    std::swap(m_data[item_idx], m_data[2 * item_idx + 1]);
-
-			    item_idx = 2 * item_idx + 1;
-		  	}
-		 	else
-		  	{
-			    std::swap(m_data[item_idx], m_data[2 * item_idx + 2]);
-
-			    item_idx = 2 * item_idx + 2;
-		  	}
-		}
-		else 
-		{
-			std::swap(m_data[item_idx], m_data[2 * item_idx + 1]);
-
-			item_idx = 2 * item_idx + 1;
-		}
-}
 }
 
 //reserve
@@ -140,10 +116,10 @@ template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::pop()
 {
 	//m_data[m_length + 1] = null;
-	std::swap(m_data[m_length + 1], m_data[1]);
-	//m_data[m_length + 1] = 0;
-	//move_down(1);
-	fix_heap();
+	std::swap(m_data[m_length], m_data[1]);
+	m_data[m_length] = 0;
+	move_down(1);
+	//fix_heap();
 	m_length--;
 }
 
