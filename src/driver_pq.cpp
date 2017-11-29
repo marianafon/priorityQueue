@@ -48,11 +48,13 @@ int main( )
         PQ<int, decltype(compare) > h( compare );
 
         assert( h.size() == 0 );
-        //assert( h.empty() == true );
-        //h.push(1);
-        //assert( h.empty() == false );
+        assert( h.empty() == true );
+        h.push(1);
+        assert( h.empty() == false );
 
         std::cout << ">>> Passed!\n\n";
+
+        h.print();
     }
     /*
     {
@@ -66,6 +68,7 @@ int main( )
         {
             assert( expected_len == h.size() );
             h.push( e );
+            h.print();
             assert( ++expected_len == h.size() );
         }
 
