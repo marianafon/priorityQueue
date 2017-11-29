@@ -11,15 +11,14 @@ PQ< ValueType, Compare >::PQ (const Compare & cmp) 	: m_capacity(0)
 {
 	m_capacity = DEFAULT_SIZE;
 	//Alocar:
-	ValueType* p = (ValueType*) malloc(m_capacity * sizeof(ValueType));
-	m_data = std::unique_ptr< ValueType[] >(p);
+	//ValueType* p = (ValueType*) malloc(m_capacity * sizeof(ValueType));
+	//m_data = std::unique_ptr< ValueType[] >(p);
 
 	//Assim também dá certo:
 	//Alocar:
-		//ValueType* p = new ValueType[m_capacity];
-		//m_data = std::unique_ptr< ValueType[] >(p);	
+		ValueType* p = new ValueType[m_capacity];
+		m_data = std::unique_ptr< ValueType[] >(p);	
 	//Alocar:
-		//std::unique_ptr< ValueType[] > p( new foo(42) );
 		//std::unique_ptr< ValueType[] > p(new ValueType[m_capacity]);
 		//m_data = std::move(p);
 }
@@ -37,16 +36,17 @@ void PQ< ValueType, Compare >::push( const_reference x )
 
 	//Inserir x na última posição
 	m_data[m_length + 1] = x;
-	
+	//atualizar m_length
+	m_length++;
+
 	//Verificar sort order
 		//Caso não seja a posição correta, fazer operação de move_up até obedecer à regra
 	if(m_sorted == false)
 	{
-		//move_up(m_length);
+		move_up(m_length);
 	}
-	//atualizar m_length
-	m_length++;
-	fix_heap();
+	
+	//fix_heap();
 }
 
 //Move Up
@@ -54,12 +54,12 @@ template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::move_up(size_type item_idx) 	
 {
 	//Pois as posições válidas começas do 1, mas o programa de teste, conta como 0
-	if((item_idx + 1) > 0 && (item_idx + 1) <= m_length)
+	if((item_idx) > 1 && (item_idx) <= m_length)
 	{
-		if(m_cmp(m_data[(item_idx + 1)], m_data[((item_idx + 1))/2]))
+		if(m_cmp(m_data[(item_idx)], m_data[((item_idx))/2]))
 		{
-			std::swap(m_data[(item_idx + 1)], m_data[((item_idx + 1))/2]);		
-			move_up(((item_idx + 1))/2);
+			std::swap(m_data[(item_idx)], m_data[((item_idx))/2]);		
+			move_up(((item_idx))/2);
 		}
 	}
 }
@@ -68,6 +68,7 @@ void PQ< ValueType, Compare >::move_up(size_type item_idx)
 template<typename ValueType , typename Compare >
 void PQ< ValueType, Compare >::move_down(size_type item_idx) 	
 {
+	/*
 	if((item_idx + 1) > 0 && (item_idx + 1) <= m_length)
 	{
 		if(!m_cmp(m_data[(item_idx + 1)], m_data[((item_idx + 1))/2]))
@@ -76,6 +77,34 @@ void PQ< ValueType, Compare >::move_down(size_type item_idx)
 			move_up(((item_idx + 1))/2);
 		}
 	}
+	*/
+
+	// continua no loop enquanto o pai for maior do que um dos filhos
+	while(m_cmp(m_data[2 * item_idx + 1], m_data[item_idx]) || m_cmp(m_data[2 * item_idx + 2], m_data[item_idx]))
+	{
+		//compara quem eh o filho maior ou menor entre os dois(esquerda e direita)
+		if((2 * item_idx + 1) < m_length && (2 * item_idx + 2) < m_length)
+		{
+			if(m_cmp(m_data[2 * item_idx + 1], m_data[2 * item_idx + 2]))
+		  	{
+			    std::swap(m_data[item_idx], m_data[2 * item_idx + 1]);
+
+			    item_idx = 2 * item_idx + 1;
+		  	}
+		 	else
+		  	{
+			    std::swap(m_data[item_idx], m_data[2 * item_idx + 2]);
+
+			    item_idx = 2 * item_idx + 2;
+		  	}
+		}
+		else 
+		{
+			std::swap(m_data[item_idx], m_data[2 * item_idx + 1]);
+
+			item_idx = 2 * item_idx + 1;
+		}
+}
 }
 
 //reserve
