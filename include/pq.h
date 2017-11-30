@@ -59,7 +59,14 @@ public:
 
     PQ & operator= ( const PQ& rhs );
 
-    virtual ~PQ(){};
+    virtual ~PQ()
+    {
+        m_data.reset(nullptr);
+        m_length = 0;
+        m_capacity = 0;
+        m_sorted = false;
+        //m_cmp = null;
+    };
 
     //=== Element access methods
     const_reference  top( void );
