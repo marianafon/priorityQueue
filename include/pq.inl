@@ -106,7 +106,7 @@ void PQ< ValueType, Compare >::fix_heap()
 		move_down(i);
 	}
 
-	//m_sorted = true;
+	m_sorted = true;
 }
 /*========================================================================================================*/
 //Pop === Working!
@@ -159,8 +159,32 @@ PQ< ValueType, Compare >::PQ(InputIt first,	InputIt	last, const Compare & cmp): 
 	for (auto it=first; it!=last; it++) 
 		this->push(*it);
 } 	
+/*========================================================================================================*/
+//Range constructor
+template<typename ValueType, typename Compare >
+void PQ< ValueType, Compare >::toss(const ValueType & x) 	
+{
+	//Verificar se pode ser inserido
+		//Se não poder, dobrar o tamanho da heap mantendo os elementos atuais intáctos
+	if(m_capacity <= m_length + 1)
+	{		
+		reserve(m_capacity * 2);
+	}
 
+	//Inserir x na última posição
+	m_data[m_length + 1] = x;
+	//atualizar m_length
+	m_length++;
 
+	//Verificar sort order
+		//Caso não seja a posição correta, fazer operação de move_up até obedecer à regra
+	//if(m_sorted == false)
+	//{
+	//	move_up(m_length);
+	//}
+	
+	fix_heap();	
+}
 
 
 

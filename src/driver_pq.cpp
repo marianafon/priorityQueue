@@ -176,7 +176,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
-    /*
+    
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": toss.\n";
 
@@ -201,7 +201,7 @@ int main( )
         while( not h.empty() )
         {
             auto x = h.top();
-            //h.print();
+            h.print();
             assert( x == B_sorted[i++] );
             h.pop();
         }
@@ -210,7 +210,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
-
+    /*
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": insertion/deletion mixed.\n";
 
