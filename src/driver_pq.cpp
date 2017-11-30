@@ -12,12 +12,12 @@
 struct CompareItems {
     bool operator()( const size_t & a, const size_t & b )
     {
-        return a > b ;
+        return a < b ;
     }
 } compare;
 
 #else // Use lambda
-auto compare = []( int a, int b ) { return a > b; };
+auto compare = []( int a, int b ) { return a < b; };
 #endif
 
 int main( )
@@ -254,7 +254,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
-    /*
+    
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": Copy constructor.\n";
 
@@ -298,7 +298,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
-    */
+    
     return 0;
 }
 
