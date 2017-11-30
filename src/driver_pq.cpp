@@ -12,12 +12,12 @@
 struct CompareItems {
     bool operator()( const size_t & a, const size_t & b )
     {
-        return a > b ;
+        return a < b ;
     }
 } compare;
 
 #else // Use lambda
-auto compare = []( int a, int b ) { return a > b; };
+auto compare = []( int a, int b ) { return a < b; };
 #endif
 
 int main( )
@@ -153,7 +153,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
-    /*
+    
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": constructor from range.\n";
 
@@ -166,6 +166,7 @@ int main( )
         auto i(0);
         while( not h.empty() )
         {
+            h.print();
             auto x = h.top();
             assert( x == B_sorted[i++] );
             h.pop();
@@ -175,6 +176,7 @@ int main( )
 
         std::cout << ">>> Passed!\n\n";
     }
+    /*
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": toss.\n";
 

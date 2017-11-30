@@ -128,7 +128,7 @@ typename PQ< ValueType, Compare >::const_reference PQ< ValueType, Compare >::top
 	return m_data[1];
 }
 /*========================================================================================================*/
-//Initializer list constructor
+//Initializer list constructor ==Working!
 template<typename ValueType, typename Compare>
 PQ< ValueType, Compare >::PQ(const std::initializer_list< ValueType > & ilist, const Compare & cmp) : m_length(0)	
 												    												, m_sorted (false)
@@ -139,10 +139,48 @@ PQ< ValueType, Compare >::PQ(const std::initializer_list< ValueType > & ilist, c
 	ValueType* p = new ValueType[m_capacity];
 	m_data = std::unique_ptr< ValueType[] >(p);	
 
-	typename std::initializer_list<ValueType>::iterator it;
-	for (it=ilist.begin(); it!=ilist.end(); ++it) 
+	//typename std::initializer_list<ValueType>::iterator it;
+	for (auto it=ilist.begin(); it!=ilist.end(); it++) 
 		this->push((ValueType)*it);
 }
+/*========================================================================================================*/
+//Range constructor
+template<typename ValueType , typename Compare>
+template<typename InputIt >
+PQ< ValueType, Compare >::PQ(InputIt first,	InputIt	last, const Compare & cmp): m_length(0)	
+																			  , m_sorted (false)
+												    						  , m_cmp (cmp)
+{
+	m_capacity = DEFAULT_SIZE;
+	
+	ValueType* p = new ValueType[m_capacity];
+	m_data = std::unique_ptr< ValueType[] >(p);	
+	
+	for (auto it=first; it!=last; it++) 
+		this->push(*it);
+} 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
