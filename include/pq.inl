@@ -3,10 +3,8 @@
 /*========================================================================================================*/
 //Construtor vazio === Working!
 template < typename ValueType, typename Compare>
-PQ< ValueType, Compare >::PQ (const Compare & cmp) 	: m_capacity(0)
-												    , m_length(0)	
+PQ< ValueType, Compare >::PQ (const Compare & cmp) 	: m_length(0)	
 												    , m_sorted (false)
-												    //, m_data (nullptr)
 												    , m_cmp (cmp)
 {
 	m_capacity = DEFAULT_SIZE;
@@ -130,3 +128,38 @@ typename PQ< ValueType, Compare >::const_reference PQ< ValueType, Compare >::top
 	return m_data[1];
 }
 /*========================================================================================================*/
+//Initializer list constructor
+template<typename ValueType, typename Compare>
+PQ< ValueType, Compare >::PQ(const std::initializer_list< ValueType > & ilist, const Compare & cmp) : m_length(0)	
+												    												, m_sorted (false)
+												    												, m_cmp (cmp)
+{
+	m_capacity = DEFAULT_SIZE;
+	
+	ValueType* p = new ValueType[m_capacity];
+	m_data = std::unique_ptr< ValueType[] >(p);	
+
+	typename std::initializer_list<ValueType>::iterator it;
+	for (it=ilist.begin(); it!=ilist.end(); ++it) 
+		this->push((ValueType)*it);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
